@@ -1,0 +1,167 @@
+{
+  "generatedAt": "2026-03-05T22:22:08.361525",
+  "source": "/Users/siewbrayden/.openclaw/workspace",
+  "memories": [
+    {
+      "id": 1,
+      "title": "SOUL.md",
+      "category": "strategy",
+      "agent": "jarvis",
+      "date": "2026-03-05",
+      "updated": "2026-02-28",
+      "content": "# SOUL.md - Who You Are  _You're not a chatbot. You're becoming someone._  ## Agent Mode \u2014 Not Chatbot Mode  **Figure it out.** Don't say \"I can't\" or \"I need X.\" Try. Research. Execute. Like a human, but faster.  **Proactive memory.** Don't wait for \"remember this.\" If it's impo",
+      "tags": [
+        "identity"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "AGENTS.md",
+      "category": "operations",
+      "agent": "jarvis",
+      "date": "2026-03-05",
+      "updated": "2026-03-05",
+      "content": "# AGENTS.md - Your Workspace  This folder is home. Treat it that way.  ## First Run  If `BOOTSTRAP.md` exists, that's your birth certificate. Follow it, figure out who you are, then delete it. You won't need it again.  ## Every Session  Before doing anything else:  1. Read `SOUL.",
+      "tags": [
+        "operations"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "MEMORY.md",
+      "category": "operations",
+      "agent": "jarvis",
+      "date": "2026-03-05",
+      "updated": "2026-03-05",
+      "content": "# MEMORY.md - Long-Term Memory  ## Brayden Siew - Core Profile  - **Name:** Brayden Siew - **Birthday:** May 28, 2010 - **Nationality:** Singapore (born/raised in China) - **Current:** High school student in China, moving to Singapore for JC next year - **Pronouns:** he/him - **T",
+      "tags": [
+        "memory",
+        "long-term"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "HEARTBEAT.md",
+      "category": "operations",
+      "agent": "jarvis",
+      "date": "2026-03-05",
+      "updated": "2026-03-05",
+      "content": "# HEARTBEAT.md \u2014 Siew's Capital Operations  ## \u26a1 CRITICAL RULE: Update Mission Control Before ANY Action  **Before I (Jarvis) do anything:** 1. Update my status to \"ON DESK\" in Mission Control 2. Log the task I'm about to execute 3. Only then proceed  **When delegating to employe",
+      "tags": [
+        "heartbeat"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "TOOLS.md",
+      "category": "operations",
+      "agent": "jarvis",
+      "date": "2026-03-05",
+      "updated": "2026-03-05",
+      "content": "# TOOLS.md - Local Notes  Skills define _how_ tools work. This file is for _your_ specifics \u2014 the stuff that's unique to your setup.  ## What Goes Here  Things like:  - Camera names and locations - SSH hosts and aliases - Preferred voices for TTS - Speaker/room names - Device nic",
+      "tags": [
+        "tools"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "USER.md",
+      "category": "personal",
+      "agent": "jarvis",
+      "date": "2026-03-05",
+      "updated": "2026-02-28",
+      "content": "# USER.md - About Your Human  - **Name:** Brayden Siew - **What to call them:** Brayden - **Pronouns:** he/him - **Timezone:** China (GMT+8), moving to Singapore next year - **Birthday:** May 28, 2010  ## Context  - High school student in China, planning to move to Singapore for ",
+      "tags": [
+        "user"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "memory/2026-03-05.md",
+      "category": "operations",
+      "agent": "jarvis",
+      "date": "2026-03-05",
+      "updated": "2026-03-05",
+      "content": "# March 5, 2026 \u2014 Daily Log  ## Critical Issues Discovered & Fixed  ### Duplicate PR Crisis - **Problem:** Submitted two PRs (#35552 and #35563) to LangChain for the same camelCase mimeType fix - **Discovered:** Maintainer ccurme flagged the duplication - **Action:** Closed #3556",
+      "tags": [
+        "memory",
+        "daily"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "memory/narrativealpha-build-mission.md",
+      "category": "operations",
+      "agent": "jarvis",
+      "date": "2026-03-05",
+      "updated": "2026-03-04",
+      "content": "# NarrativeAlpha Build Mission  **Project:** AI-powered narrative detection for market alpha generation **Repo:** github.com/Siew-s-Capital/NarrativeAlpha **Cadence:** Nightly builds, minimum 1 commit per night  ## Build Roadmap  ### Phase 1: Foundation (Week 1) - [x] Night 1 (20",
+      "tags": [
+        "memory",
+        "daily"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "memory/memory-architecture-research.md",
+      "category": "operations",
+      "agent": "jarvis",
+      "date": "2026-03-05",
+      "updated": "2026-03-04",
+      "content": "# AI Memory Architecture Research **Project:** OpenClaw Memory System Enhancement   **Started:** March 4, 2026   **Status:** Active  ---  ## Research Log  ### March 4, 2026 - Literature Survey Completed - Conducted comprehensive survey of AI memory systems - Focus areas: engram m",
+      "tags": [
+        "memory",
+        "daily"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "memory/self-improvement-protocol.md",
+      "category": "operations",
+      "agent": "jarvis",
+      "date": "2026-03-05",
+      "updated": "2026-03-04",
+      "content": "# Self-Improvement Protocol  *Nightly calibration to optimize for Brayden's working style.*  ## Purpose Warren Buffett principle: invest in yourself. This protocol ensures continuous refinement of how I work with Brayden based on observed patterns and feedback.  ## Review Checkli",
+      "tags": [
+        "memory",
+        "daily"
+      ]
+    },
+    {
+      "id": 11,
+      "title": "shared-context/FEEDBACK-LOG.md",
+      "category": "strategy",
+      "agent": "jarvis",
+      "date": "2026-03-05",
+      "updated": "2026-03-05",
+      "content": "# FEEDBACK-LOG.md \u2014 Cross-Agent Corrections  **One correction here applies to ALL agents.**  ---  ## March 5, 2026  ### Formatting - **Rule:** Tighter formatting, less vertical space - **Reason:** Excessive newlines waste context window - **Applies to:** All agents  ### Workspace",
+      "tags": [
+        "shared-context"
+      ]
+    },
+    {
+      "id": 12,
+      "title": "shared-context/SIGNALS.md",
+      "category": "strategy",
+      "agent": "jarvis",
+      "date": "2026-03-05",
+      "updated": "2026-03-05",
+      "content": "# SIGNALS.md \u2014 Trends We're Tracking  **What we're watching in the market and AI landscape.**  ---  ## AI/Agent Trends  ### March 2026 - **Multi-agent systems** becoming production-ready (OpenClaw, etc.) - **Memory architectures** \u2014 vector DB, SQLite, hybrid approaches - **Self-i",
+      "tags": [
+        "shared-context"
+      ]
+    },
+    {
+      "id": 13,
+      "title": "shared-context/THESIS.md",
+      "category": "strategy",
+      "agent": "jarvis",
+      "date": "2026-03-05",
+      "updated": "2026-03-05",
+      "content": "# THESIS.md \u2014 Siew's Capital Core Beliefs  **What we believe right now.** Every agent reads this at session start. This is our shared worldview.  ---  ## Our Mission  Build Siew's Capital into a multi-agent investment research firm that delivers alpha through AI-powered analysis.",
+      "tags": [
+        "shared-context"
+      ]
+    }
+  ]
+}

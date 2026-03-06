@@ -1,0 +1,111 @@
+{
+  "name": "Siew's Capital — Mission Control API",
+  "version": "3.0",
+  "description": "OpenClaw integration guide for Mission Control. All state is accessible via window.__MISSION_CONTROL_STATE__ and window.__MISSION_CONTROL_API__.",
+  "state_access": {
+    "read": "window.__MISSION_CONTROL_STATE__",
+    "api": "window.__MISSION_CONTROL_API__",
+    "description": "State auto-updates when agents are added, removed, or status changes. All views (Team, Org Chart, Office) sync automatically."
+  },
+  "api_methods": {
+    "addAgent": {
+      "call": "window.__MISSION_CONTROL_API__.addAgent(agentObj)",
+      "params": {
+        "id": "string — unique ID (lowercase, no spaces)",
+        "name": "string — display name (UPPERCASE)",
+        "role": "string — job title",
+        "color": "string — hex color",
+        "initials": "string — 2 chars",
+        "icon": "string — emoji",
+        "type": "'agent' | 'council' | 'oracle'",
+        "status": "'online' | 'standby' | 'offline'"
+      },
+      "returns": "boolean — true if added, false if ID already exists",
+      "syncs": [
+        "Team view",
+        "Org Chart",
+        "Office floor plan",
+        "Agent Status Panel",
+        "Homepage stats"
+      ]
+    },
+    "removeAgent": {
+      "call": "window.__MISSION_CONTROL_API__.removeAgent(agentId)",
+      "params": {
+        "agentId": "string — the agent's ID"
+      },
+      "returns": "boolean — true if removed, false if not found",
+      "syncs": [
+        "Team view",
+        "Org Chart",
+        "Office floor plan",
+        "Agent Status Panel",
+        "Homepage stats"
+      ]
+    },
+    "updateAgentStatus": {
+      "call": "window.__MISSION_CONTROL_API__.updateAgentStatus(agentId, status)",
+      "params": {
+        "agentId": "string",
+        "status": "'online' | 'standby' | 'offline'"
+      },
+      "syncs": [
+        "All views"
+      ]
+    },
+    "getAgents": {
+      "call": "window.__MISSION_CONTROL_API__.getAgents()",
+      "returns": "Array of all agent objects (employees + council + oracle)"
+    }
+  },
+  "state_shape": {
+    "timestamp": "ISO 8601",
+    "agents": "Array — regular employees only",
+    "council": "Array — council advisory members",
+    "oracle": "Array — oracle consultant(s)",
+    "totalOnline": "number",
+    "totalStandby": "number"
+  },
+  "status_guide": {
+    "_note": "Each agent in __MISSION_CONTROL_STATE__ has these fields for quick status checks:",
+    "isWorking": "boolean — TRUE when agent status is 'online' (actively processing tasks)",
+    "isIdle": "boolean — TRUE when agent status is 'standby' (on standby, not actively working)",
+    "statusNote": "string — human-readable description: 'WORKING — actively processing tasks', 'IDLE — on standby, not actively working', or 'OFFLINE — agent is not available'",
+    "statuses": {
+      "online": "WORKING — agent is actively processing tasks. Shows green dot in Office view.",
+      "standby": "IDLE — agent exists but is not actively working. Shows yellow dot. Use this for agents not yet deployed.",
+      "offline": "OFFLINE — agent is completely unavailable. Won't appear in active counts."
+    },
+    "how_to_check": "const agents = window.__MISSION_CONTROL_STATE__.agents; agents.forEach(a => console.log(a.name, a.statusNote, a.isWorking ? '🟢' : a.isIdle ? '🟡' : '⚫'));"
+  },
+  "office_behavior": {
+    "_note": "The Office view simulates agents moving between rooms on a timed cycle.",
+    "cycle_interval": "8 seconds per cycle tick",
+    "locations": [
+      "desk",
+      "coffee",
+      "conference",
+      "watercooler",
+      "lounge",
+      "pingpong",
+      "council",
+      "oracle"
+    ],
+    "transition": "When agents change location, they enter a 3-second 'walking' state and appear in the corridor before arriving at their destination.",
+    "desk_means_working": "Agents at their desk are considered 'working'. Agents in other locations are 'on break' or 'roaming'."
+  },
+  "agent_types": {
+    "agent": "Regular employee — gets a desk in workspace, appears in Team view with full details",
+    "council": "Advisory council member — sits in Council Advisory Room, provides risk/growth/devil's advocate perspectives",
+    "oracle": "Strategic consultant — sits in Oracle Chamber, called for high-stakes decisions"
+  },
+  "examples": {
+    "hire_new_agent": "window.__MISSION_CONTROL_API__.addAgent({ id: 'nova', name: 'NOVA', role: 'Data Scientist', color: '#06B6D4', initials: 'NV', icon: '📊', type: 'agent' })",
+    "fire_agent": "window.__MISSION_CONTROL_API__.removeAgent('nova')",
+    "set_offline": "window.__MISSION_CONTROL_API__.updateAgentStatus('atlas', 'offline')",
+    "set_idle": "window.__MISSION_CONTROL_API__.updateAgentStatus('trader', 'standby')",
+    "check_status": "console.log(window.__MISSION_CONTROL_STATE__)",
+    "check_working_agents": "window.__MISSION_CONTROL_STATE__.agents.filter(a => a.isWorking).map(a => a.name)",
+    "check_idle_agents": "window.__MISSION_CONTROL_STATE__.agents.filter(a => a.isIdle).map(a => a.name)"
+  }
+}

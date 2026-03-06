@@ -1,0 +1,12 @@
+{
+  "last_updated": "2026-03-05T22:10:00+08:00",
+  "tasks": [
+    {"id": 1, "title": "OSS Campaign: Reach 10 merged PRs", "assignee": "forge", "status": "in-progress", "priority": "high", "type": "dev", "notes": "7 submitted, 3 remaining"},
+    {"id": 2, "title": "Review maintainer feedback on active PRs", "assignee": "sentinel", "status": "assigned", "priority": "high", "type": "ops", "notes": "Monitor LangChain/Ollama/Pandas/LlamaIndex/vLLM/Zed/Continue"},
+    {"id": 3, "title": "Fix Continue PR #11065 minor issue (+ char decode)", "assignee": "forge", "status": "assigned", "priority": "medium", "type": "dev", "notes": "Apply reviewer suggestion and re-check"},
+    {"id": 4, "title": "Nightly stock research (Dr. Tee methodology)", "assignee": "trader", "status": "assigned", "priority": "high", "type": "research", "notes": "Use giantdetector.com"},
+    {"id": 5, "title": "Nightly workspace organization (no deletions)", "assignee": "atlas", "status": "assigned", "priority": "medium", "type": "ops", "notes": "Reorganize if messy; skip if already clean"},
+    {"id": 6, "title": "Mission Control synchronization protocol enforcement", "assignee": "jarvis", "status": "in-progress", "priority": "high", "type": "ops", "notes": "Keep .openclaw and MissionControl synchronized"},
+    {"id": 7, "title": "Rich upstream PR unblock follow-up (issue #4029)", "assignee": "closer", "status": "assigned", "priority": "medium", "type": "ops", "notes": "Wait for maintainer collaborator response"}
+  ]
+}
