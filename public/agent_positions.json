@@ -1,1 +1,137 @@
-/Users/siewbrayden/Desktop/Siew's Capital/agent_positions.json
+{
+  "timestamp": "2026-03-05T21:47:00.000000",
+  "at_desk": 2,
+  "roaming": 8,
+  "agents": {
+    "JARVIS": {
+      "x": 100,
+      "y": 100,
+      "room": "ceo_office",
+      "desk": true,
+      "status": "working",
+      "task": "Building shared context system",
+      "animation": "typing",
+      "models": {
+        "primary": "Kimi K2-P5",
+        "fallback": "ChatGPT 5.3 Codex"
+      }
+    },
+    "ATLAS": {
+      "x": 300,
+      "y": 200,
+      "room": "intelligence",
+      "desk": false,
+      "status": "idle",
+      "activity": "Research",
+      "animation": "idle",
+      "models": {
+        "primary": "Gemini 3.1 Pro",
+        "fallback": "ChatGPT 5.2"
+      }
+    },
+    "FORGE": {
+      "x": 500,
+      "y": 200,
+      "room": "development",
+      "desk": false,
+      "status": "idle",
+      "activity": "Break",
+      "animation": "idle",
+      "models": {
+        "primary": "ChatGPT 5.3 Codex",
+        "fallback": "Kimi K2-P5"
+      }
+    },
+    "SCRIBE": {
+      "x": 200,
+      "y": 400,
+      "room": "hallway",
+      "desk": false,
+      "status": "idle",
+      "activity": "Walking",
+      "animation": "idle",
+      "models": {
+        "primary": "Gemini 3 Flash",
+        "fallback": "ChatGPT 5.2"
+      }
+    },
+    "PIXEL": {
+      "x": 150,
+      "y": 600,
+      "room": "lounge",
+      "desk": false,
+      "status": "idle",
+      "activity": "Coffee",
+      "animation": "idle",
+      "models": {
+        "primary": "Gemini 3 Flash",
+        "fallback": "ChatGPT 5.2"
+      }
+    },
+    "TRADER": {
+      "x": 200,
+      "y": 400,
+      "room": "hallway",
+      "desk": false,
+      "status": "idle",
+      "activity": "Walking",
+      "animation": "idle",
+      "models": {
+        "primary": "Kimi K2-P5",
+        "fallback": "ChatGPT 5.2"
+      }
+    },
+    "SHIELD": {
+      "x": 200,
+      "y": 400,
+      "room": "hallway",
+      "desk": false,
+      "status": "idle",
+      "activity": "Walking",
+      "animation": "idle",
+      "models": {
+        "primary": "ChatGPT 5.2",
+        "fallback": "Gemini 3 Flash"
+      }
+    },
+    "ECHO": {
+      "x": 550,
+      "y": 600,
+      "room": "kitchen",
+      "desk": false,
+      "status": "idle",
+      "activity": "Snacks",
+      "animation": "idle",
+      "models": {
+        "primary": "Gemini 3 Flash",
+        "fallback": "ChatGPT 5.2"
+      }
+    },
+    "CLOSER": {
+      "x": 800,
+      "y": 450,
+      "room": "hallway",
+      "desk": false,
+      "status": "idle",
+      "activity": "Walking",
+      "animation": "idle",
+      "models": {
+        "primary": "ChatGPT 5.2",
+        "fallback": "Gemini 3 Flash"
+      }
+    },
+    "SENTINEL": {
+      "x": 600,
+      "y": 450,
+      "room": "operations",
+      "desk": true,
+      "status": "working",
+      "task": "Monitoring PRs",
+      "animation": "typing",
+      "models": {
+        "primary": "Gemini 3 Flash",
+        "fallback": "ChatGPT 5.2"
+      }
+    }
+  }
+}
