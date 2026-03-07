@@ -207,16 +207,7 @@ function ClockDisplay({ dm }) {
 let AGENTS = [
   // ── Regular Employees ──
   { id: "jarvis", name: "JARVIS", role: "CEO", color: "#3B82F6", initials: "JV", icon: "⚙️", type: "agent", status: "online" },
-  { id: "atlas", name: "ATLAS", role: "Research", color: "#F59E0B", initials: "AT", icon: "🔍", type: "agent", status: "online" },
-  { id: "forge", name: "FORGE", role: "Developer", color: "#60A5FA", initials: "FO", icon: "🔧", type: "agent", status: "online" },
-  { id: "scribe", name: "SCRIBE", role: "Content", color: "#EC4899", initials: "SC", icon: "✍️", type: "agent", status: "online" },
-  { id: "pixel", name: "PIXEL", role: "Creative", color: "#A855F7", initials: "PX", icon: "🎨", type: "agent", status: "online" },
-  { id: "trader", name: "TRADER", role: "Trading", color: "#10B981", initials: "TR", icon: "📈", type: "agent", status: "standby" },
-  { id: "shield", name: "SHIELD", role: "Risk", color: "#EF4444", initials: "SH", icon: "🛡", type: "agent", status: "online" },
-  { id: "echo", name: "ECHO", role: "Community", color: "#06B6D4", initials: "EC", icon: "💬", type: "agent", status: "standby" },
-  { id: "closer", name: "CLOSER", role: "Sales", color: "#F97316", initials: "CL", icon: "📧", type: "agent", status: "standby" },
-  { id: "sentinel", name: "SENTINEL", role: "DevOps", color: "#64748B", initials: "SE", icon: "🖥", type: "agent", status: "online" },
-  // ── Council Advisory ──
+  // Council Advisory
   {
     id: "risk", name: "RISK", role: "Risk Analyst", color: "#EF4444", initials: "RK", icon: "⚠️", type: "council", status: "online",
     desc: "Finds what could go wrong. Worst-case scenarios, hidden downsides, black swan events."
