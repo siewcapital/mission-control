@@ -205,26 +205,23 @@ function ClockDisplay({ dm }) {
    type: "agent" = regular employee, "council" = advisory council, "oracle" = oracle consultant
    ═══════════════════════════════════════════════════════════════════════════════ */
 let AGENTS = [
-  // ── Regular Employees ──
-  { id: "jarvis", name: "JARVIS", role: "CEO", color: "#3B82F6", initials: "JV", icon: "⚙️", type: "agent", status: "online" },
-  // Council Advisory
-  {
-    id: "risk", name: "RISK", role: "Risk Analyst", color: "#EF4444", initials: "RK", icon: "⚠️", type: "council", status: "online",
-    desc: "Finds what could go wrong. Worst-case scenarios, hidden downsides, black swan events."
-  },
-  {
-    id: "growth", name: "GROWTH", role: "Growth Strategist", color: "#10B981", initials: "GR", icon: "📈", type: "council", status: "online",
-    desc: "Finds the upside. Timing, positioning, market opportunity, scaling paths."
-  },
-  {
-    id: "devils", name: "DEVIL'S ADVOCATE", role: "Critical Thinker", color: "#F59E0B", initials: "DA", icon: "🔥", type: "council", status: "online",
-    desc: "Pokes holes in BOTH arguments. Challenges assumptions, stress-tests logic."
-  },
-  // ── Oracle Consultant ──
-  {
-    id: "oracle", name: "ORACLE", role: "Strategic Consultant", color: "#A855F7", initials: "OR", icon: "🔮", type: "oracle", status: "online",
-    desc: "McKinsey-level strategy. Called for high-stakes decisions, major pivots, when Council can't agree."
-  },
+  // THE 10 EMPLOYEES (Type: agent)
+  { id: "jarvis", name: "JARVIS", type: "agent", status: "online", emoji: "🎯", color: "#f59e0b", dept: "Command", desc: "CEO & Coordinator. Manages squad to build empire.", model: "google/gemini-3.1-pro-preview", fallback: "openai-codex/gpt-5.4", initials: "JA" },
+  { id: "forge", name: "FORGE", type: "agent", status: "idle", emoji: "⚒️", color: "#ef4444", dept: "Engineering", desc: "Lead Developer. Writes code, architects systems.", model: "openai-codex/gpt-5.4", fallback: "google/gemini-3.1-pro-preview", initials: "FO" },
+  { id: "atlas", name: "ATLAS", type: "agent", status: "idle", emoji: "🔍", color: "#3b82f6", dept: "Intelligence", desc: "Senior Analyst. Deep research, alpha hunting.", model: "openai-codex/gpt-5.4", fallback: "google/gemini-3.1-pro-preview", initials: "AT" },
+  { id: "scribe", name: "SCRIBE", type: "agent", status: "idle", emoji: "📝", color: "#8b5cf6", dept: "Content", desc: "Content Director. Documentation, humanized writing.", model: "openai-codex/gpt-5.4", fallback: "google/gemini-3-flash-preview", initials: "SC" },
+  { id: "pixel", name: "PIXEL", type: "agent", status: "idle", emoji: "🎨", color: "#ec4899", dept: "Design", desc: "Creative Director. UI/UX design, brand assets.", model: "google/gemini-3.1-pro-preview", fallback: "openai-codex/gpt-5.4", initials: "PX" },
+  { id: "trader", name: "TRADER", type: "agent", status: "idle", emoji: "📈", color: "#10b981", dept: "Trading", desc: "Portfolio Manager. Stock analysis, Dr. Tee signals.", model: "openai-codex/gpt-5.4", fallback: "google/gemini-3.1-pro-preview", initials: "TR" },
+  { id: "shield", name: "SHIELD", type: "agent", status: "idle", emoji: "🛡️", color: "#6366f1", dept: "Security", desc: "Risk Officer. Risk assessment, safety checks.", model: "openai-codex/gpt-5.4", fallback: "google/gemini-3-flash-preview", initials: "SH" },
+  { id: "echo", name: "ECHO", type: "agent", status: "idle", emoji: "📡", color: "#06b6d4", dept: "Outreach", desc: "Communications. Telegram updates, summaries.", model: "google/gemini-3-flash-preview", fallback: "openai-codex/gpt-5.4", initials: "EC" },
+  { id: "closer", name: "CLOSER", type: "agent", status: "idle", emoji: "🔒", color: "#f97316", dept: "Outreach", desc: "Execution Specialist. Final checks, shipping.", model: "openai-codex/gpt-5.4", fallback: "google/gemini-3-flash-preview", initials: "CL" },
+  { id: "sentinel", name: "SENTINEL", type: "agent", status: "working", emoji: "🤖", color: "#64748b", dept: "Security", desc: "System Monitor. Health, cron tracking, silent ops.", model: "google/gemini-3-flash-preview", fallback: "openai-codex/gpt-5.4", initials: "SE" },
+  
+  // COUNCIL MEMBERS (Type: council)
+  { id: "risk", name: "RISK", type: "council", status: "online", emoji: "⚠️", color: "#ef4444", dept: "Advisory", desc: "Identifies system vulnerabilities and downside risks.", initials: "RI" },
+  { id: "growth", name: "GROWTH", type: "council", status: "online", emoji: "🌱", color: "#10b981", dept: "Advisory", desc: "Explores scale, marketing, and expansion vectors.", initials: "GR" },
+  { id: "devil", name: "DEVIL'S ADVOCATE", type: "council", status: "online", emoji: "😈", color: "#a855f7", dept: "Advisory", desc: "Challenges prevailing assumptions and groupthink.", initials: "DA" },
+  { id: "oracle", name: "ORACLE", type: "oracle", status: "online", emoji: "🔮", color: "#8b5cf6", dept: "Master", desc: "High-level synthesis. Bazi destiny alignment.", initials: "OR" }
 ];
 
 /* Listeners for state changes — all views re-render when agents change */
@@ -365,7 +362,19 @@ function useAgents() {
 }
 
 /* Helper: look up agent by id. Returns fallback if not found. */
-const getAgent = (id) => AGENTS.find(a => a.id === id) || { name: id, color: "var(--mc-text3)", initials: "??" };
+const AGENT_FALLBACKS = {
+  atlas: { name: "ATLAS", initials: "AT", color: "#8B5CF6" },
+  forge: { name: "FORGE", initials: "FO", color: "#F97316" },
+  scribe: { name: "SCRIBE", initials: "SC", color: "#EC4899" },
+  pixel: { name: "PIXEL", initials: "PX", color: "#06B6D4" },
+  trader: { name: "TRADER", initials: "TR", color: "#10B981" },
+  shield: { name: "SHIELD", initials: "SH", color: "#64748B" },
+  echo: { name: "ECHO", initials: "EC", color: "#F59E0B" },
+  closer: { name: "CLOSER", initials: "CL", color: "#DC2626" },
+  sentinel: { name: "SENTINEL", initials: "SE", color: "#6366F1" },
+  jarvis: { name: "JARVIS", initials: "JV", color: "#3B82F6" },
+};
+const getAgent = (id) => AGENTS.find(a => a.id === id) || AGENT_FALLBACKS[id] || { name: id, color: "var(--mc-text3)", initials: "??" };
 /* Helper: get only regular employees (backwards compat) */
 const getEmployees = () => AGENTS.filter(a => a.type === "agent");
 const getCouncil = () => AGENTS.filter(a => a.type === "council");
@@ -672,28 +681,22 @@ function TasksBoard() {
    📌 MONTH NAV: calMonth (0-11), calYear (number). Navigate with prevMonth()/nextMonth().
    ═══════════════════════════════════════════════════════════════════════════════ */
 function CalendarView() {
-  const [calMonth, setCalMonth] = useState(1); // 0=Jan, 1=Feb, ...
-  const [calYear, setCalYear] = useState(2026);
-  const [selectedDay, setSelectedDay] = useState(28);
+  const today = new Date();
+  const [calMonth, setCalMonth] = useState(today.getMonth());
+  const [calYear, setCalYear] = useState(today.getFullYear());
+  const [selectedDay, setSelectedDay] = useState(today.getDate());
   const [showAdd, setShowAdd] = useState(false);
   const [newTime, setNewTime] = useState("09:00");
   const [newAgent, setNewAgent] = useState("jarvis");
   const [newTask, setNewTask] = useState("");
   const [scheduledTasks, setScheduledTasks] = useState([
-    { day: 27, time: "06:00", agent: "atlas", task: "Morning market scan & macro news digest", recurring: true },
-    { day: 27, time: "07:00", agent: "jarvis", task: "Daily briefing → #headquarters", recurring: true },
-    { day: 27, time: "09:00", agent: "atlas", task: "On-chain whale movement scan", recurring: true },
-    { day: 27, time: "14:00", agent: "forge", task: "Build daily briefing automation", recurring: false },
-    { day: 27, time: "20:00", agent: "sentinel", task: "System health check & agent status", recurring: true },
-    { day: 27, time: "22:00", agent: "shield", task: "End-of-day risk report", recurring: true },
-    { day: 28, time: "06:00", agent: "atlas", task: "Morning market scan & macro news digest", recurring: true },
-    { day: 28, time: "07:00", agent: "jarvis", task: "Daily briefing → #headquarters", recurring: true },
-    { day: 28, time: "09:00", agent: "forge", task: "Discord server bot integration setup", recurring: false },
-    { day: 28, time: "11:00", agent: "scribe", task: "Write blog post draft — AI agent companies", recurring: false },
-    { day: 28, time: "15:00", agent: "atlas", task: "Weekly deep research: top 20 AI tokens", recurring: false },
-    { day: 28, time: "20:00", agent: "sentinel", task: "System health check", recurring: true },
-    { day: 1, time: "08:00", agent: "jarvis", task: "Monthly operations review", recurring: false },
-    { day: 1, time: "10:00", agent: "atlas", task: "Q1 2026 macro outlook report", recurring: false },
+    { day: today.getDate(), month: today.getMonth(), year: today.getFullYear(), time: "00:00", agent: "atlas", task: "Alpha Hunter Scout (Recurring every 10m)", recurring: true },
+    { day: today.getDate(), month: today.getMonth(), year: today.getFullYear(), time: "02:00", agent: "trader", task: "Stock research via DrTee scan", recurring: true },
+    { day: today.getDate(), month: today.getMonth(), year: today.getFullYear(), time: "06:30", agent: "trader", task: "Morning stock recommendations via Telegram", recurring: true },
+    { day: today.getDate(), month: today.getMonth(), year: today.getFullYear(), time: "07:30", agent: "jarvis", task: "OSS Campaign morning report", recurring: true },
+    { day: today.getDate(), month: today.getMonth(), year: today.getFullYear(), time: "12:00", agent: "sentinel", task: "Mid-day PR monitor run", recurring: true },
+    { day: today.getDate(), month: today.getMonth(), year: today.getFullYear(), time: "23:00", agent: "jarvis", task: "OSS Campaign PR cycle coordination", recurring: true },
+    { day: today.getDate(), month: today.getMonth(), year: today.getFullYear(), time: "23:30", agent: "jarvis", task: "NarrativeAlpha nightly processing", recurring: true }
   ]);
 
   const addEvent = () => {
@@ -706,9 +709,9 @@ function CalendarView() {
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
   const firstDayOfWeek = new Date(calYear, calMonth, 1).getDay();
-  const isCurrentMonth = calMonth === 1 && calYear === 2026;
-  const today = isCurrentMonth ? 28 : -1;
-  const dayTasks = scheduledTasks.filter(t => t.day === selectedDay && (!t.month || t.month === calMonth));
+  const isCurrentMonth = calMonth === new Date().getMonth() && calYear === new Date().getFullYear();
+  const todayDate = isCurrentMonth ? new Date().getDate() : -1;
+  const dayTasks = scheduledTasks.filter(t => t.day === selectedDay && (!t.month || t.month === calMonth) && (!t.year || t.year === calYear));
 
   const prevMonth = () => { if (calMonth === 0) { setCalMonth(11); setCalYear(y => y - 1); } else setCalMonth(m => m - 1); setSelectedDay(1); };
   const nextMonth = () => { if (calMonth === 11) { setCalMonth(0); setCalYear(y => y + 1); } else setCalMonth(m => m + 1); setSelectedDay(1); };
@@ -727,7 +730,7 @@ function CalendarView() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "3px" }}>
           {Array.from({ length: firstDayOfWeek }, (_, i) => <div key={"e" + i} />)}
           {Array.from({ length: daysInMonth }, (_, i) => i + 1).map(day => {
-            const hasTasks = scheduledTasks.some(t => t.day === day && (!t.month || t.month === calMonth));
+            const hasTasks = scheduledTasks.some(t => t.day === day && (!t.month || t.month === calMonth) && (!t.year || t.year === calYear));
             const isToday = day === today;
             const isSel = day === selectedDay;
             return (
@@ -1028,20 +1031,21 @@ function OrgHierarchy() {
 
   const getAgentStatus = (agentName) => {
     const pos = agentPositions[agentName.toUpperCase()];
-    return pos?.desk ? "online" : "standby";
+    // Return "working" if at desk and active, otherwise "idle"
+    return pos?.desk ? "working" : "idle";
   };
 
   const modelRegistry = {
-    "ATLAS": { p: "Gemini 3.1 Pro", f: "ChatGPT 5.2" },
-    "FORGE": { p: "ChatGPT 5.3 Codex", f: "Kimi K2-P5" },
-    "SENTINEL": { p: "Gemini 3 Flash", f: "ChatGPT 5.2" },
-    "SCRIBE": { p: "Gemini 3 Flash", f: "ChatGPT 5.2" },
-    "PIXEL": { p: "Gemini 3 Flash", f: "ChatGPT 5.2" },
-    "TRADER": { p: "Kimi K2-P5", f: "ChatGPT 5.2" },
-    "SHIELD": { p: "ChatGPT 5.2", f: "Gemini 3 Flash" },
-    "ECHO": { p: "Gemini 3 Flash", f: "ChatGPT 5.2" },
-    "CLOSER": { p: "ChatGPT 5.2", f: "Gemini 3 Flash" },
-    "JARVIS": { p: "Kimi K2-P5", f: "ChatGPT 5.3 Codex" }
+    "ATLAS": { p: "ChatGPT 5.4 Codex", f: "Gemini 3.1 Pro" },
+    "FORGE": { p: "ChatGPT 5.4 Codex", f: "Gemini 3.1 Pro" },
+    "SENTINEL": { p: "Gemini 3 Flash", f: "ChatGPT 5.4 Codex" },
+    "SCRIBE": { p: "ChatGPT 5.4 Codex", f: "Gemini 3 Flash" },
+    "PIXEL": { p: "Gemini 3.1 Pro", f: "ChatGPT 5.4 Codex" },
+    "TRADER": { p: "ChatGPT 5.4 Codex", f: "Gemini 3.1 Pro" },
+    "SHIELD": { p: "ChatGPT 5.4 Codex", f: "Gemini 3 Flash" },
+    "ECHO": { p: "Gemini 3 Flash", f: "ChatGPT 5.4 Codex" },
+    "CLOSER": { p: "ChatGPT 5.4 Codex", f: "Gemini 3 Flash" },
+    "JARVIS": { p: "Kimi K2-P5", f: "ChatGPT 5.4 Codex" }
   };
 
   const council = [
@@ -1054,41 +1058,41 @@ function OrgHierarchy() {
     {
       name: "INTELLIGENCE", icon: "🔍", color: "#F59E0B",
       agents: [
-        { name: "ATLAS", initials: "AT", color: "#F59E0B", title: "Senior Research Analyst", tags: ["DEEP RESEARCH", "ON-CHAIN INTEL"], status: "online", desc: "Your eyes and ears. Researches any topic — crypto, AI, macro, competitors.", handles: ["Market research & signal generation", "AI industry trend tracking", "On-chain intelligence (whale movements)", "Macro news monitoring"], primaryModel: "Gemini 3.1 Pro", fallbackModel: "ChatGPT 5.2" },
+        { name: "ATLAS", initials: "AT", color: "#F59E0B", title: "Senior Research Analyst", tags: ["DEEP RESEARCH", "ON-CHAIN INTEL"], status: "online", desc: "Your eyes and ears. Researches any topic — crypto, AI, macro, competitors.", handles: ["Market research & signal generation", "AI industry trend tracking", "On-chain intelligence (whale movements)", "Macro news monitoring"] },
       ]
     },
     {
       name: "DEVELOPMENT", icon: "🔧", color: "#60A5FA",
       agents: [
-        { name: "FORGE", initials: "FO", color: "#60A5FA", title: "Senior Developer", tags: ["FULL-STACK DEV", "AUTOMATION"], status: "online", desc: "Your builder. Writes code, builds tools, creates automations, debugs scripts.", handles: ["Trading bot development", "API integrations & data pipelines", "Web/app prototyping", "Automation scripts"], primaryModel: "ChatGPT 5.3 Codex", fallbackModel: "Kimi K2-P5" },
-        { name: "SENTINEL", initials: "SE", color: "#64748B", title: "QA Monitor", tags: ["SYSTEM MONITORING", "HEALTH CHECKS"], status: "online", desc: "Your IT department. Monitors all agents, checks uptime, auto-restarts failures.", handles: ["Agent health checks every 15 min", "API connection monitoring", "Auto-restart failed agents", "Error tracking & logging"], primaryModel: "Gemini 3 Flash", fallbackModel: "ChatGPT 5.2" },
+        { name: "FORGE", initials: "FO", color: "#60A5FA", title: "Senior Developer", tags: ["FULL-STACK DEV", "AUTOMATION"], status: "online", desc: "Your builder. Writes code, builds tools, creates automations, debugs scripts.", handles: ["Trading bot development", "API integrations & data pipelines", "Web/app prototyping", "Automation scripts"] },
+        { name: "SENTINEL", initials: "SE", color: "#64748B", title: "QA Monitor", tags: ["SYSTEM MONITORING", "HEALTH CHECKS"], status: "online", desc: "Your IT department. Monitors all agents, checks uptime, auto-restarts failures.", handles: ["Agent health checks every 15 min", "API connection monitoring", "Auto-restart failed agents", "Error tracking & logging"] },
       ]
     },
     {
       name: "CONTENT", icon: "✍️", color: "#EC4899",
       agents: [
-        { name: "SCRIBE", initials: "SC", color: "#EC4899", title: "Content Director", tags: ["CONTENT CREATION", "COPYWRITING"], status: "online", desc: "Your voice. Writes threads, blogs, newsletters, ad copy, pitch decks.", handles: ["Twitter/X threads & posts", "Blog articles & long-form", "Newsletter writing", "Pitch decks & investor materials"], primaryModel: "Gemini 3 Flash", fallbackModel: "ChatGPT 5.2" },
-        { name: "PIXEL", initials: "PX", color: "#A855F7", title: "Lead Designer", tags: ["DESIGN CONCEPTS", "IMAGE GEN"], status: "online", desc: "Your creative eye. All visual work — brand, graphics, image gen, UI/UX.", handles: ["Brand identity & logos", "Social media graphics", "AI image generation", "UI/UX wireframes & mockups"], primaryModel: "Gemini 3 Flash", fallbackModel: "ChatGPT 5.2" },
+        { name: "SCRIBE", initials: "SC", color: "#EC4899", title: "Content Director", tags: ["CONTENT CREATION", "COPYWRITING"], status: "online", desc: "Your voice. Writes threads, blogs, newsletters, ad copy, pitch decks.", handles: ["Twitter/X threads & posts", "Blog articles & long-form", "Newsletter writing", "Pitch decks & investor materials"] },
+        { name: "PIXEL", initials: "PX", color: "#A855F7", title: "Lead Designer", tags: ["DESIGN CONCEPTS", "IMAGE GEN"], status: "online", desc: "Your creative eye. All visual work — brand, graphics, image gen, UI/UX.", handles: ["Brand identity & logos", "Social media graphics", "AI image generation", "UI/UX wireframes & mockups"] },
       ]
     },
     {
       name: "TRADING", icon: "📈", color: "#10B981",
       agents: [
-        { name: "TRADER", initials: "TR", color: "#10B981", title: "Head Trader", tags: ["TRADE EXECUTION", "PORTFOLIO MGMT"], status: "standby", desc: "Your money maker. Executes trades, manages portfolio, enforces risk rules.", handles: ["Trade execution (spot, later futures)", "Position sizing & entry/exit", "Portfolio rebalancing", "P&L tracking & daily reports"], primaryModel: "Kimi K2-P5", fallbackModel: "ChatGPT 5.2" },
-        { name: "SHIELD", initials: "SH", color: "#EF4444", title: "Risk Officer", tags: ["CIRCUIT BREAKERS", "KILL-SWITCH"], status: "online", desc: "Your safety net. Has OVERRIDE authority to halt any operation that breaches risk.", handles: ["Real-time risk monitoring", "Circuit breaker enforcement", "Kill-switch on all trading", "Daily risk reports to Chairman"], primaryModel: "ChatGPT 5.2", fallbackModel: "Gemini 3 Flash" },
+        { name: "TRADER", initials: "TR", color: "#10B981", title: "Head Trader", tags: ["TRADE EXECUTION", "PORTFOLIO MGMT"], status: "standby", desc: "Your money maker. Executes trades, manages portfolio, enforces risk rules.", handles: ["Trade execution (spot, later futures)", "Position sizing & entry/exit", "Portfolio rebalancing", "P&L tracking & daily reports"] },
+        { name: "SHIELD", initials: "SH", color: "#EF4444", title: "Risk Officer", tags: ["CIRCUIT BREAKERS", "KILL-SWITCH"], status: "online", desc: "Your safety net. Has OVERRIDE authority to halt any operation that breaches risk.", handles: ["Real-time risk monitoring", "Circuit breaker enforcement", "Kill-switch on all trading", "Daily risk reports to Chairman"] },
       ]
     },
     {
       name: "OUTREACH", icon: "📧", color: "#F97316",
       agents: [
-        { name: "ECHO", initials: "EC", color: "#06B6D4", title: "Community Manager", tags: ["DISCORD MOD", "SENTIMENT"], status: "standby", desc: "Your front desk. Manages Discord, Telegram, customer inquiries.", handles: ["Discord & Telegram moderation", "Customer inquiry responses", "Community sentiment tracking", "New member onboarding"], primaryModel: "Gemini 3 Flash", fallbackModel: "ChatGPT 5.2" },
-        { name: "CLOSER", initials: "CL", color: "#F97316", title: "Account Executive", tags: ["COLD OUTREACH", "LEAD NURTURE"], status: "standby", desc: "Your dealmaker. Outbound outreach, partnerships, lead nurturing.", handles: ["Cold outreach & introductions", "Email sequences & nurture", "Partnership inquiries", "Proposal & pitch drafting"], primaryModel: "ChatGPT 5.2", fallbackModel: "Gemini 3 Flash" },
+        { name: "ECHO", initials: "EC", color: "#06B6D4", title: "Community Manager", tags: ["DISCORD MOD", "SENTIMENT"], status: "standby", desc: "Your front desk. Manages Discord, Telegram, customer inquiries.", handles: ["Discord & Telegram moderation", "Customer inquiry responses", "Community sentiment tracking", "New member onboarding"] },
+        { name: "CLOSER", initials: "CL", color: "#F97316", title: "Account Executive", tags: ["COLD OUTREACH", "LEAD NURTURE"], status: "standby", desc: "Your dealmaker. Outbound outreach, partnerships, lead nurturing.", handles: ["Cold outreach & introductions", "Email sequences & nurture", "Partnership inquiries", "Proposal & pitch drafting"] },
       ]
     },
   ];
 
   const SDot = ({ s }) => (
-    <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: s === "online" ? "#10B981" : "#EF4444", boxShadow: s === "online" ? "0 0 6px #10B98166" : "none", position: "absolute", top: "12px", right: "12px" }} />
+    <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: s === "working" ? "#10B981" : "#F59E0B", boxShadow: s === "working" ? "0 0 6px #10B98166" : "none", position: "absolute", top: "12px", right: "12px" }} />
   );
 
   const VLine = ({ h = 24 }) => <div style={{ display: "flex", justifyContent: "center" }}><div style={{ width: "1px", height: h, background: "var(--mc-border3)" }} /></div>;
@@ -1097,6 +1101,8 @@ function OrgHierarchy() {
     const isExp = exp === agent.name;
     // SYNC: Get live status from Office
     const liveStatus = getAgentStatus(agent.name);
+    // Get models from registry
+    const models = modelRegistry[agent.name] || { p: "ChatGPT 5.4 Codex", f: "Gemini 3.1 Pro" };
     return (
       <div onClick={() => setExp(isExp ? null : agent.name)} style={{ background: isExp ? "var(--mc-bg4)" : "var(--mc-card2)", border: `1px solid ${isExp ? agent.color + "44" : "#1E1E28"}`, borderRadius: "12px", padding: "14px 16px", position: "relative", cursor: "pointer", transition: "all 0.15s" }}>
         <SDot s={liveStatus} />
@@ -1119,14 +1125,12 @@ function OrgHierarchy() {
                 <span style={{ fontSize: "9px", color: "var(--mc-text3)", lineHeight: 1.5 }}>{h}</span>
               </div>
             ))}
-            {agent.primaryModel && (
-              <div style={{ marginTop: "10px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                <div style={{ display: "flex", gap: "6px" }}>
-                  <span style={{ fontSize: "8px", color: "var(--mc-text4)", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.2)", padding: "2px 6px", borderRadius: "4px" }}>PRIMARY: {agent.primaryModel}</span>
-                  <span style={{ fontSize: "8px", color: "var(--mc-text4)", background: "rgba(245, 158, 11, 0.1)", border: "1px solid rgba(245, 158, 11, 0.2)", padding: "2px 6px", borderRadius: "4px" }}>FALLBACK: {agent.fallbackModel}</span>
-                </div>
+            <div style={{ marginTop: "10px", display: "flex", flexDirection: "column", gap: "4px" }}>
+              <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+                <span style={{ fontSize: "8px", color: "var(--mc-text4)", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.2)", padding: "2px 6px", borderRadius: "4px" }}>PRIMARY: {models.p}</span>
+                <span style={{ fontSize: "8px", color: "var(--mc-text4)", background: "rgba(245, 158, 11, 0.1)", border: "1px solid rgba(245, 158, 11, 0.2)", padding: "2px 6px", borderRadius: "4px" }}>FALLBACK: {models.f}</span>
               </div>
-            )}
+            </div>
           </div>
         )}
       </div>
@@ -1267,7 +1271,7 @@ function OrgHierarchy() {
       {/* Legend */}
       <div style={{ marginTop: "16px", display: "flex", gap: "16px", flexWrap: "wrap", padding: "10px 14px", background: "var(--mc-card)", border: "1px solid var(--mc-border2)", borderRadius: "8px", alignItems: "center" }}>
         <span style={{ fontSize: "9px", color: "var(--mc-text5)", letterSpacing: "1px", fontWeight: 700 }}>STATUS:</span>
-        {[{ l: "Online", c: "#10B981" }, { l: "Standby", c: "#EF4444" }].map(s => (
+        {[{ l: "Working (at desk)", c: "#10B981" }, { l: "Idle (away)", c: "#F59E0B" }].map(s => (
           <div key={s.l} style={{ display: "flex", alignItems: "center", gap: "5px" }}>
             <div style={{ width: "7px", height: "7px", borderRadius: "50%", background: s.c }} />
             <span style={{ fontSize: "10px", color: "var(--mc-text3)" }}>{s.l}</span>
